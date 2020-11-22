@@ -5,10 +5,10 @@ module.exports.createFolderDao = async (folderData) => {
     try {
         const folder = new folderSchema(folderData);
         await folder.save();
-        return { status: true }
+        return { status: true };
     } catch(error) {
         if(error.code === 11000) {
-            return { status: false, message: FOLDER_EXIST }
+            return { status: false, message: FOLDER_EXIST };
         }
         return { status: false, message: DB_ERROR };
     }

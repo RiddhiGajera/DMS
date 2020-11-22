@@ -1,4 +1,5 @@
-const { userSchema } = require('../models/user-model');
+const { folderSchema } = require('../models/folder-model');
+const { fileSchema } = require('../models/file-model');
 
 module.exports.getAllDocumentsDao = async () => {
     // TODO will get the documents baed on the user, will implement once login is done 

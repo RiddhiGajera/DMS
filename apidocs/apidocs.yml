@@ -32,6 +32,27 @@ paths:
           description: "Success"
           schema: 
             $ref: "#/definitions/CreateResponse"
+  /file:
+    post:
+      tags:
+      - "DMS"
+      summary: "Create file"
+      description: "Create file"
+      operationId: "CreateFile"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Create file"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateFileParams"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/CreateResponse"
   /documents:
     get:
       tags:
@@ -47,6 +68,18 @@ paths:
           schema: 
             $ref: "#/definitions/GetResponse"
 definitions:
+  CreateFileParams:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "test.txt"
+      content: 
+        type: "string"
+        example: "Hello World"
+      folder_id: 
+        type: "string"
+        example: "5fba748fd8ec200c14059643"
   CreateFolderParams:
     type: "object"
     properties:

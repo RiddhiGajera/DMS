@@ -1,4 +1,3 @@
-const { messages: { FOLDER_EXIST } } = require('../shared/constant');
 const { checkFolderExistDao } = require('../dao');
 
 module.exports.checkFolderExist = async (req, res, next) => {

@@ -15,6 +15,9 @@ const validations = {
 const validationSchema = {
     createFolderSchema: {
         name: validations.nameValidation
+    },
+    createFileSchema: {
+        name: validations.nameValidation
     }
 }
 

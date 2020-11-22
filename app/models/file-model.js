@@ -11,4 +11,4 @@ const fileSchema = mongoose.Schema({
 fileSchema.index({ name: 1, user_id: 1, folder_id: 1 }, { unique: true })
 fileSchema.set('timestamps', true);
 
-module.exports.userSchema = mongoose.model('folders', fileSchema);
+module.exports.fileSchema = mongoose.model('files', fileSchema);
