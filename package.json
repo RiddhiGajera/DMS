@@ -1,0 +1,31 @@
+{
+  "name": "dms",
+  "version": "1.0.0",
+  "description": "Document management system",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter=xunit .\\\\test\\\\**\\\\*.js --reporter-options output=testspec.xunit.xml --exit",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RiddhiGajera/DMS.git"
+  },
+  "keywords": [
+    "DMS"
+  ],
+  "author": "Riddhi Gajera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RiddhiGajera/DMS/issues"
+  },
+  "homepage": "https://github.com/RiddhiGajera/DMS#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15"
+  }
+}
