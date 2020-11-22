@@ -11,6 +11,27 @@ tags:
 schemes:
 - "http" 
 paths:
+  /folder:
+    post:
+      tags:
+      - "DMS"
+      summary: "Create folder"
+      description: "Create folder"
+      operationId: "CreateFolder"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Create folder"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateFolderParams"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/CreateResponse"
   /documents:
     get:
       tags:
@@ -26,6 +47,21 @@ paths:
           schema: 
             $ref: "#/definitions/GetResponse"
 definitions:
+  CreateFolderParams:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Data"
+  CreateResponse: 
+    type: "object"
+    properties:
+      data:
+        type: "object"
+        properties:
+          message: 
+            type: "string"
+            example: "Folder created successfully"
   GetResponse:
     type: "object"
     properties:

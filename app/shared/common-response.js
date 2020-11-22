@@ -1,9 +1,9 @@
 module.exports.response = async (req, res, next) => {
-  res.body ? res.status(200).send(res.body) : res.status(200).send({'message': 'Success'});
+  res.status(200).send(res.body);
 };
 
 module.exports.badRequest = async (req, res, errors) => {
-  const message = errors ? { message: errors.errors[0].msg } : res.message;
+  const message = errors ? { message: errors } : res.message;
   res.status(400);
   res.json(message);
 }

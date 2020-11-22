@@ -9,4 +9,4 @@ const folderSchema = mongoose.Schema({
 folderSchema.index({ name: 1, user_id: 1 }, { unique: true })
 folderSchema.set('timestamps', true);
 
-module.exports.userSchema = mongoose.model('folders', folderSchema);
+module.exports.folderSchema = mongoose.model('folders', folderSchema);
