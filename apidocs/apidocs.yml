@@ -1,0 +1,68 @@
+swagger: "2.0"
+info:
+  description: "Document Management System"
+  version: "1.0.0"
+  title: "APIs for the Document Management System"
+host: "localhost:8080"
+basePath: "/dms"
+tags:
+- name: "DMS"
+  description: "Document Management System API"
+schemes:
+- "http" 
+paths:
+  /documents:
+    get:
+      tags:
+      - "DMS"
+      summary: "Get all folders and files"
+      description: "Get all folders and files"
+      operationId: "DocumentList"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/GetResponse"
+definitions:
+  GetResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ResponseEntity"
+  
+  ResponseEntity:
+    type: "object"
+    properties:
+      folders:
+        type: "array"
+        items:
+          $ref: "#/definitions/FolderResponseEntity"
+      files:
+        type: "array"
+        items:
+          $ref: "#/definitions/FileResponseEntity"
+
+  FolderResponseEntity:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Data"
+  FileResponseEntity:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "test.txt"
+      content:
+        type: "string"
+        example: "Hello World"
+
+
+
+
+  
