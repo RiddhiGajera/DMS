@@ -5,10 +5,12 @@ const path = require('path');
 const routes = require('./app/route');
 const database = require('./db-connection');
 let { db, port: PORT } = require('./app/config/config');
+const { initializePassport } = require('./app/auth/passport');
 
 const app = express();
 const port = process.env.port ? process.env.port : PORT;
 
+initializePassport(app);
 app.use(bodyParser.json());app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({ type: 'application/json'}));
 

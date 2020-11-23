@@ -1,7 +1,8 @@
 const { folderSchema } = require('../models/folder-model');
 const { fileSchema } = require('../models/file-model');
 
-module.exports.getAllDocumentsDao = async () => {
-    // TODO will get the documents baed on the user, will implement once login is done 
-    return await userSchema.find({}, { _id: 0, username: 0, password: 0, createdAt: 0, updatedAt: 0});
+module.exports.getAllDocumentsDao = async (user_id) => {
+     const folders = await folderSchema.find({user_id}, { user_id: 0 });
+     const files = await fileSchema.find({user_id, folder_id: null}, { user_id: 0 });
+     return [...folders, ...files];
 }

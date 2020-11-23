@@ -3,7 +3,9 @@ const { messages: { FOLDER_SUCCESS, FOLDER_EXIST } } = require('../shared/consta
 
 module.exports.createFolder = async (req, res, next) => {
     try {
-        const { name, user_id } = req.body;
+        const { _id: user_id } = req.loggedinUser;
+        console.log('user_id: ', user_id);
+        const { name } = req.body;
         const { isFolderExist } = res;
         if (!isFolderExist) {
             const createFolderRes = await createFolderDao({name, user_id});

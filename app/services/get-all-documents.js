@@ -3,7 +3,9 @@ const { messages: { NO_DATA } } = require('../shared/constant');
 
 module.exports.getAllDocuments = async (req, res, next) => {
     try { 
-        const documents = await getAllDocumentsDao();
+        console.log('loggedinUser: ', req.loggedinUser);
+        const { loggedinUser: { _id: user_id } } = req;
+        const documents = await getAllDocumentsDao(user_id);
         if(documents && documents.length > 0) {
             res.body = {
                 data: documents

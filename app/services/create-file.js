@@ -3,7 +3,8 @@ const { messages: { FILE_SUCCESS, FOLDER_NOT_EXIST, FILE_EXIST } } = require('..
 
 module.exports.createFile = async (req, res, next) => {
     try {
-        const { name, user_id, folder_id = null, content } = req.body;
+        const { _id: user_id } = req.loggedinUser;
+        const { name, folder_id = null, content } = req.body;
         const { isFolderExist, isFileExist } = res;
         if (isFolderExist && !isFileExist) {
             const createFileRes = await createFileDao({name, user_id, folder_id, content});
