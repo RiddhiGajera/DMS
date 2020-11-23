@@ -1,0 +1,15 @@
+version: 3
+services: 
+    dms_app:
+        container_name: dms_app
+        restart: always
+        build: .
+        ports: 
+            - "8080:8080"
+        links: 
+            - dms_db
+    dms_db:
+        container_name: dms_db
+        image: mongo
+        port: 
+            - "27017:27017"
