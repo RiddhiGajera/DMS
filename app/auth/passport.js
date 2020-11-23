@@ -21,7 +21,6 @@ const localStratgy = new LocalStratgy({
 }, async (usernameField, passwordField, done) => {
   let user = false;
   user = await authenticateUser({username: usernameField, password: passwordField});
-  console.log('user', user);
   done(null, user);
 });
 
@@ -31,7 +30,6 @@ const jwtStrategy = new JwtStrategy({
   passReqToCallback: true,
 }, async (req, payload, done) => {
   const user = await getUserByName(payload.id);
-  console.log('user: ', user);
   if (user === undefined) {
     const error = { message: 'Unauthorized user'}
     done(error, false);

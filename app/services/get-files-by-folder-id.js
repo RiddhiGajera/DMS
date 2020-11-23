@@ -1,10 +1,11 @@
-const { getAllDocumentsDao } = require('../dao');
+const { getAllFilesBasedOnFolderIdDao } = require('../dao');
 const { messages: { NO_DATA } } = require('../shared/constant');
 
-module.exports.getAllDocuments = async (req, res, next) => {
+module.exports.getAllFilesBasedOnFolderId = async (req, res, next) => {
     try { 
         const { loggedinUser: { _id: user_id } } = req;
-        const documents = await getAllDocumentsDao(user_id);
+        const { params: { folder_id } } = req;
+        const documents = await getAllFilesBasedOnFolderIdDao(user_id, folder_id);
         if(documents && documents.length > 0) {
             res.body = {
                 data: documents

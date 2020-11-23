@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const { secretOrKey } = require('../config/config');
 
 module.exports.login = async (req, res, next) => {
-  console.log('req.body: ', req.body);
   const { username } = req.body;
   const token = jwt.sign({ id: username }, secretOrKey);
   res.body = {

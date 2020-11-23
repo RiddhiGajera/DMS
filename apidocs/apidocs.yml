@@ -104,7 +104,29 @@ paths:
         "200":
           description: "Success"
           schema: 
-            $ref: "#/definitions/GetResponse"
+            $ref: "#/definitions/GetAllDocumentResponse"
+  /documents/{folder_id}:
+    get:
+      tags:
+      - "DMS"
+      summary: "Get all files within the given folder"
+      description: "Get all files within the given folder"
+      operationId: "FileListByFOlderId"
+      produces:
+      - "application/json"
+      parameters:
+        - name: access-token
+          in: header
+          required: true
+          type: string
+        - in: "path"
+          name: "folder_id"
+          type: "string"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/GetFilesResponse"
 definitions:
   LoginRequest:
     type: "object"
@@ -155,7 +177,13 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/ResponseEntity"
-  
+  GetFilesResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/GetFilesResponseEntity"
   ResponseEntity:
     type: "object"
     properties:
@@ -183,6 +211,78 @@ definitions:
       content:
         type: "string"
         example: "Hello World"
+  GetFilesResponseEntity:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/GetFilesResponseEntityData"
+  GetFilesResponseEntityData:
+    type: "object"
+    properties:
+      folder_id:
+        type: "string"
+        example: "5fbbd2d4ae5ff564dc6a24d0"
+      _id: 
+        type: "string"
+        example: "5fbbd382f993e059e08cdde1"
+      name:
+        type: "string"
+        example: "test.txt"
+      content:
+        type: "string"
+        example: "Hello World"
+      createdAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+      updatedAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+  GetAllDocumentResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        example: [
+            {
+              "_id": "5fbbd2d4ae5ff564dc6a24d0",
+              "name": "Data",
+              "createdAt": "2020-11-23T15:18:44.972Z",
+              "updatedAt": "2020-11-23T15:18:44.972Z"
+            },
+            {
+              "folder_id": null,
+              "_id": "5fbbd41d0168d46d6487b63d",
+              "name": "test.txt",
+              "content": "Hello World",
+              "createdAt": "2020-11-23T15:24:13.606Z",
+              "updatedAt": "2020-11-23T15:24:13.606Z"
+            }
+          ]
+  GetAllDocumentResponseData:
+    type: "object"
+    properties:
+      folder_id:
+        type: "string"
+        example: "null"
+      _id: 
+        type: "string"
+        example: "5fbbd382f993e059e08cdde1"
+      name:
+        type: "string"
+        example: "test.txt"
+      content:
+        type: "string"
+        example: "Hello World"
+      createdAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+      updatedAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+    
+
 
 
 
