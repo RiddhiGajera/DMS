@@ -155,7 +155,7 @@ paths:
         "200":
           description: "Success"
           schema: 
-            $ref: "#/definitions/GetFilesResponse"
+            $ref: "#/definitions/MoveFileResponse"
 definitions:
   LoginRequest:
     type: "object"
@@ -196,6 +196,12 @@ definitions:
       from: 
         type: "string"
         example: "5fba748fd8ec200a14059667"
+  MoveFileResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        example: "File moved successfully."
   CreateFolderParams:
     type: "object"
     properties:
@@ -205,12 +211,9 @@ definitions:
   CreateResponse: 
     type: "object"
     properties:
-      data:
-        type: "object"
-        properties:
-          message: 
-            type: "string"
-            example: "Folder created successfully"
+      message: 
+        type: "string"
+        example: "Folder created successfully"
   GetResponse:
     type: "object"
     properties:
@@ -224,7 +227,7 @@ definitions:
       data:
         type: "array"
         items:
-          $ref: "#/definitions/GetFilesResponseEntity"
+          $ref: "#/definitions/GetFilesResponseEntityData"
   ResponseEntity:
     type: "object"
     properties:
