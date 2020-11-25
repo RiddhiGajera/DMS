@@ -3,7 +3,7 @@ module.exports.response = async (req, res, next) => {
 };
 
 module.exports.badRequest = async (req, res, errors) => {
-  const message = errors ? { message: errors } : res.message;
+  const message = errors ? { message: errors } : { message: res.message };
   res.status(400);
   res.json(message);
 }

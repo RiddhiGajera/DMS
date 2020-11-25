@@ -29,6 +29,23 @@ const validations = {
             },
             errorMessage: 'password is required',
         }
+    },
+    idValidation: {
+        in: ['body'],
+        exists: {
+            options: {
+                checkNull: true,
+                checkFalsy: true,
+            },
+            errorMessage: 'folder id is required',
+        },
+        custom: {
+            options: (value, { req, location, path }) => {
+               const { body: { to, from }} = req;
+               return to === from ? false : true;
+            },
+            errorMessage: 'To move the file Source and Destination folder must not be same',
+        }
     }
 }
 
@@ -42,6 +59,10 @@ const validationSchema = {
     loginValidation: {
         username: validations.usernameValidation,
         password: validations.passwordValidation
+    },
+    moveFileSchema: {
+        to: validations.idValidation,
+        from: validations.idValidation,
     }
 }
 

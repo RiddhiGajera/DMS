@@ -6,7 +6,8 @@ const { createFileDao } = require('./create-file-dao');
 const { authenticateUser } = require('./authenticate-user-dao');
 const { getUserByName } = require('./get-user-by-name-dao');
 const { getAllFilesBasedOnFolderIdDao } = require('./get-all-files-by-folder-id-dao');
-
+const { getFileByIdDao } = require('./get-file-by-id-dao');
+const { moveFileDao } = require('./move-file-dao');
 
 module.exports = {
     getAllDocumentsDao,
@@ -17,4 +18,6 @@ module.exports = {
     authenticateUser,
     getUserByName,
     getAllFilesBasedOnFolderIdDao,
+    getFileByIdDao,
+    moveFileDao,
 }

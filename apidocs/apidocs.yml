@@ -127,6 +127,35 @@ paths:
           description: "Success"
           schema: 
             $ref: "#/definitions/GetFilesResponse"
+  /moveFile/{file_id}:
+    put:
+      tags:
+      - "DMS"
+      summary: "Move file from one folder to another folder or to the root folder"
+      description: "Move file from one folder to another folder or to the root folder"
+      operationId: "MoveFile"
+      produces:
+      - "application/json"
+      parameters:
+        - name: access-token
+          in: header
+          required: true
+          type: string
+        - in: "path"
+          name: "file_id"
+          type: "string"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Create file"
+          required: true
+          schema:
+            $ref: "#/definitions/MoveFileParams"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/GetFilesResponse"
 definitions:
   LoginRequest:
     type: "object"
@@ -148,13 +177,25 @@ definitions:
     properties:
       name:
         type: "string"
+        required: true
         example: "test.txt"
       content: 
         type: "string"
+        required: true
         example: "Hello World"
       folder_id: 
         type: "string"
+        required: true
         example: "5fba748fd8ec200c14059643"
+  MoveFileParams:
+    type: "object"
+    properties:
+      to:
+        type: "string"
+        example: "5fba748fd8ec200c14059643"
+      from: 
+        type: "string"
+        example: "5fba748fd8ec200a14059667"
   CreateFolderParams:
     type: "object"
     properties:

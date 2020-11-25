@@ -1,10 +1,10 @@
 const { fileSchema } = require('../models/file-model');
 
-module.exports.checkFileExistDao = async (searchParams) => {
+module.exports.getFileByIdDao = async (searchParams) => {
     try {
         const file = await fileSchema.find(searchParams);
-        return file.length > 0 ? true : false;
+        return file;
     }catch(error) {
-        return false;
+        return undefined;
     }
 }
