@@ -1,0 +1,334 @@
+swagger: "2.0"
+info:
+  description: "Document Management System"
+  version: "1.0.0"
+  title: "APIs for the Document Management System"
+host: "localhost:8080"
+basePath: "/dms"
+tags:
+- name: "DMS"
+  description: "Document Management System API"
+schemes:
+  - "http" 
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+paths:
+  /login:
+    post:
+      tags:
+      - "DMS"
+      summary: "Login"
+      description: "Login"
+      operationId: "Login"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Login"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginRequest"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/LoginResponse"
+  /folder:
+    post:
+      tags:
+      - "DMS"
+      summary: "Create folder"
+      description: "Create folder"
+      operationId: "CreateFolder"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "header"
+          name: access-token
+          required: true
+          type: string
+        - in: "body"
+          name: "body"
+          description: "Create folder"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateFolderParams"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/CreateResponse"
+  /file:
+    post:
+      tags:
+      - "DMS"
+      summary: "Create file"
+      description: "Create file"
+      operationId: "CreateFile"
+      produces:
+      - "application/json"
+      parameters:
+        - name: access-token
+          in: header
+          required: true
+          type: string
+        - in: "body"
+          name: "body"
+          description: "Create file"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateFileParams"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/CreateResponse"
+  /documents:
+    get:
+      tags:
+      - "DMS"
+      summary: "Get all folders and files"
+      description: "Get all folders and files"
+      operationId: "DocumentList"
+      produces:
+      - "application/json"
+      parameters:
+        - name: access-token
+          in: header
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/GetAllDocumentResponse"
+  /documents/{folder_id}:
+    get:
+      tags:
+      - "DMS"
+      summary: "Get all files within the given folder"
+      description: "Get all files within the given folder"
+      operationId: "FileListByFOlderId"
+      produces:
+      - "application/json"
+      parameters:
+        - name: access-token
+          in: header
+          required: true
+          type: string
+        - in: "path"
+          name: "folder_id"
+          type: "string"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/GetFilesResponse"
+  /moveFile/{file_id}:
+    put:
+      tags:
+      - "DMS"
+      summary: "Move file from one folder to another folder or to the root folder"
+      description: "Move file from one folder to another folder or to the root folder"
+      operationId: "MoveFile"
+      produces:
+      - "application/json"
+      parameters:
+        - name: access-token
+          in: header
+          required: true
+          type: string
+        - in: "path"
+          name: "file_id"
+          type: "string"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Create file"
+          required: true
+          schema:
+            $ref: "#/definitions/MoveFileParams"
+      responses:
+        "200":
+          description: "Success"
+          schema: 
+            $ref: "#/definitions/MoveFileResponse"
+definitions:
+  LoginRequest:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        example: "Admin"
+      password: 
+        type: "string"
+        example: "Admin@123"
+  LoginResponse:
+    type: "object"
+    properties:
+      access-token:
+        type: "string"
+        example: "eyJhbGciOiJIUzI1NiIsInR5csD6IkpXVCJ9.eyJpZCI6IkFkbWluIiwifWF0IjoxGjA2MTM2OTE5fQ.HMxb_tDJrC27iRx9DJLZKSUyMe9otfgfIfdkRFVc9z8"
+  CreateFileParams:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        required: true
+        example: "test.txt"
+      content: 
+        type: "string"
+        required: true
+        example: "Hello World"
+      folder_id: 
+        type: "string"
+        required: true
+        example: "5fba748fd8ec200c14059643"
+  MoveFileParams:
+    type: "object"
+    properties:
+      to:
+        type: "string"
+        example: "5fba748fd8ec200c14059643"
+      from: 
+        type: "string"
+        example: "5fba748fd8ec200a14059667"
+  MoveFileResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        example: "File moved successfully."
+  CreateFolderParams:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Data"
+  CreateResponse: 
+    type: "object"
+    properties:
+      message: 
+        type: "string"
+        example: "Folder created successfully"
+  GetResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/ResponseEntity"
+  GetFilesResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/GetFilesResponseEntityData"
+  ResponseEntity:
+    type: "object"
+    properties:
+      folders:
+        type: "array"
+        items:
+          $ref: "#/definitions/FolderResponseEntity"
+      files:
+        type: "array"
+        items:
+          $ref: "#/definitions/FileResponseEntity"
+
+  FolderResponseEntity:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Data"
+  FileResponseEntity:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "test.txt"
+      content:
+        type: "string"
+        example: "Hello World"
+  GetFilesResponseEntity:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/GetFilesResponseEntityData"
+  GetFilesResponseEntityData:
+    type: "object"
+    properties:
+      folder_id:
+        type: "string"
+        example: "5fbbd2d4ae5ff564dc6a24d0"
+      _id: 
+        type: "string"
+        example: "5fbbd382f993e059e08cdde1"
+      name:
+        type: "string"
+        example: "test.txt"
+      content:
+        type: "string"
+        example: "Hello World"
+      createdAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+      updatedAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+  GetAllDocumentResponse:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        example: [
+            {
+              "_id": "5fbbd2d4ae5ff564dc6a24d0",
+              "name": "Data",
+              "createdAt": "2020-11-23T15:18:44.972Z",
+              "updatedAt": "2020-11-23T15:18:44.972Z"
+            },
+            {
+              "folder_id": null,
+              "_id": "5fbbd41d0168d46d6487b63d",
+              "name": "test.txt",
+              "content": "Hello World",
+              "createdAt": "2020-11-23T15:24:13.606Z",
+              "updatedAt": "2020-11-23T15:24:13.606Z"
+            }
+          ]
+  GetAllDocumentResponseData:
+    type: "object"
+    properties:
+      folder_id:
+        type: "string"
+        example: "null"
+      _id: 
+        type: "string"
+        example: "5fbbd382f993e059e08cdde1"
+      name:
+        type: "string"
+        example: "test.txt"
+      content:
+        type: "string"
+        example: "Hello World"
+      createdAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+      updatedAt:
+        type: "string"
+        example: "2020-11-23T15:21:38.782Z"
+    
+
+
+
+
+
+  
